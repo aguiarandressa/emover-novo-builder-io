@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { AssessmentModal } from "@/components/ui/assessment-modal";
 import ExpertiseCard from "@/components/ExpertiseCard";
 import CTASection from "@/components/CTASection";
 import FAQSection from "@/components/FAQSection";
@@ -161,6 +163,8 @@ const expertiseAreas = [
 ];
 
 export default function Index() {
+  const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen">
       {/* Hero / Expertise Header */}
@@ -174,6 +178,14 @@ export default function Index() {
             Oferecemos um suporte multidisciplinar completo, focado no desenvolvimento para a vida
             através de um olhar humanizado, profissional e acolhedor.
           </p>
+
+          <button
+            type="button"
+            onClick={() => setIsAssessmentModalOpen(true)}
+            className="mt-8 rounded-xl bg-gradient-to-r from-[#27c0cc] to-[#0489a2] px-8 py-3 text-base font-semibold text-white shadow-[0_14px_26px_-14px_rgba(7,139,162,0.9)] transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1ab4c4] focus-visible:ring-offset-2"
+          >
+            Agendar avaliação
+          </button>
         </div>
       </section>
 
@@ -199,6 +211,15 @@ export default function Index() {
 
       {/* FAQ Section */}
       <FAQSection />
+
+      <AssessmentModal
+        isOpen={isAssessmentModalOpen}
+        onClose={() => setIsAssessmentModalOpen(false)}
+        onSubmit={(data) => {
+          console.log("Dados do agendamento:", data);
+          setIsAssessmentModalOpen(false);
+        }}
+      />
     </div>
   );
 }
